@@ -1,6 +1,6 @@
 import { createConfirmationUrl } from '../utils/CreateConfirmationUrl';
 import { isAuth } from './../middleware/isAuth';
-import { RegisterInput } from './register/Registerinput';
+import { RegisterInput } from './register/RegisterInput';
 import { User } from './../../entity/User';
 import { Resolver, Query, Mutation, Arg, UseMiddleware } from 'type-graphql';
 import bcrypt from 'bcryptjs';
@@ -10,7 +10,7 @@ import { sendEmail } from '../utils/SendEmail';
 export class RegisterResolver {
   @UseMiddleware(isAuth)
   @Query(() => String)
-  async query() {
+  async query(): Promise<string> {
     return 'query';
   }
 

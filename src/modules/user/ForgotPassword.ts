@@ -3,17 +3,13 @@ import { sendEmail } from './../utils/SendEmail';
 import { v4 } from 'uuid';
 import { User } from '../../entity/User';
 import { redis } from '../../redis';
-import { MyContext } from '../../types/MyContext';
-import { Resolver, Mutation, Arg, Ctx } from 'type-graphql';
+import { Resolver, Mutation, Arg } from 'type-graphql';
 
 @Resolver()
 export class ForgotPasswordResolver {
   @Mutation(() => Boolean)
-  async forgotPassword(
-    @Arg('email') email: string,
-    @Ctx() ctx: MyContext
-  ): Promise<boolean> {
-    const user = await User.findOne({ where: email });
+  async forgotPassword(@Arg('email') email: string): Promise<boolean> {
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       return true;
